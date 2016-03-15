@@ -1,0 +1,4 @@
+# NSD zone list
+# name pattern
+add nsgslb.cn. ns_gslb_master
+add lemon.cn. ns_gslb_master
