@@ -1,5 +1,6 @@
 import os
 import sys
+import re
 from subprocess import Popen
 import shlex
 import gene_dict
@@ -18,9 +19,10 @@ class CheckCfgNsd(object):
 	'''
 	checker = None
 	geneDict = gene_dict.GeneDict()
-	for fieldsCom in geneDict.read_file_data("compare_file", " "):
+	for fieldsCom in geneDict.read_file_data("compare_file"):
+    	    print("fuck:%s" % fieldsCom)
     	    dict_fields_com = geneDict.map_fields_dict_schema(fieldsCom)
-    	    for fieldsCfg in geneDict.read_file_data("cfg_runtime_zones.list", "\t"):
+    	    for fieldsCfg in geneDict.read_file_data("cfg_runtime_zones.list"):
 		dict_fields_cfg = geneDict.map_fields_dict_schema(fieldsCfg)
 		if (dict_fields_com["zone"] == dict_fields_cfg["zone"]) and (dict_fields_cfg["group"] in dict_fields_com["group"]):
 	    	    checker = True
@@ -41,9 +43,9 @@ class CheckCfgNsd(object):
 		serial = 1
 		process = Popen("../del_zone.sh %s %s %s %d" % (str(zone_name),str(zone_file),str(group),serial), shell = True)
 	
-	for fieldsCfg in geneDict.read_file_data("cfg_runtime_zones.list", "\t"):
+	for fieldsCfg in geneDict.read_file_data("cfg_runtime_zones.list"):
     	    dict_fields_cfg = geneDict.map_fields_dict_schema(fieldsCfg)
-    	    for fieldsCom in geneDict.read_file_data("compare_file", " "):
+    	    for fieldsCom in geneDict.read_file_data("compare_file"):
 		dict_fields_com = geneDict.map_fields_dict_schema(fieldsCom)
 		if (dict_fields_com["zone"] == dict_fields_cfg["zone"]) and (dict_fields_cfg["group"] in dict_fields_com["group"]):
 	    	    checker = True

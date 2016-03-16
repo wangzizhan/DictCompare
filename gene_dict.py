@@ -1,5 +1,6 @@
+import re
 class GeneDict(object):
-    def read_file_data(self, filepath, sep):
+    def read_file_data(self, filepath):
 	f = open(filepath, 'r')
 	for line in f:
 	    try:
@@ -9,7 +10,8 @@ class GeneDict(object):
 		continue
 	    
 	    try:
-		fields = line.split(sep)
+		#fields = line.split(sep)
+		fields = re.split(r'(?:\s)\s*', line)
 	    except:
 		continue
 	    yield fields #a generator
